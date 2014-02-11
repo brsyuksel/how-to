@@ -1,0 +1,3 @@
+*.pyc
+howto/settings/development.py
+tmp/
