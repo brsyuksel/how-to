@@ -1,3 +1,4 @@
 *.pyc
 howto/settings/development.py
 tmp/
+blog/migrations/

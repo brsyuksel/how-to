@@ -1,0 +1,25 @@
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-1 col-md-offset-1"><h1><span class="label label-default">{{entry.object.kind}}</span></h1></div>
+			<div class="col-md-10">
+				<h3><a href="{{entry.object.get_absolute_url}}" class="entry">{{entry.object.title}}</a> <small>{{entry.object.created_at|date}}</small></h3>
+				<small>
+					{% for tag in entry.object.tags.all %}
+					<span class="label label-primary"><a href="{{tag.get_absolute_url}}">{{tag.label}}</a></span>
+					{% endfor %}
+				</small>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-11 col-md-offset-1 d">
+				<h5 class="text-info">{{entry.object.description}}</h5>
+				{% if entry.object.kind == 'trk' %}
+					{{entry.html|safe}}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>

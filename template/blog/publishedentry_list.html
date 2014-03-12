@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+	{% for entry in entries %}
+		{% include 'blog/entry.html' %}
+	{% endfor %}
+{% endblock %}
+
+{% block navigator %}
+<a href="{%if page_obj.has_previous%}?page={{page_obj.previous_page_number}}{%else%}#{%endif%}" class="btn btn-default btn-xs {{page_obj.has_previous|yesno:',disabled'}}" role="button"><span class="glyphicon glyphicon-chevron-left"></span></a>
+<a href="{%if page_obj.has_next%}?page={{page_obj.next_page_number}}{%else%}#{%endif%}" class="btn btn-default btn-xs {{page_obj.has_next|yesno:',disabled'}}" role="button"><span class="glyphicon glyphicon-chevron-right"></span></a>
+{% endblock %}

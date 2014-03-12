@@ -23,8 +23,10 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
+    'blog',
+    'admin',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -34,6 +36,15 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'howto.middleware.ViewNameMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'blog.context_processors.howto_settings',
 )
 
 ROOT_URLCONF = 'howto.urls'
@@ -56,12 +67,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATE_FORMAT = DATETIME_FORMAT = '%d %b \'%y'
+DATE_FORMAT = DATETIME_FORMAT = 'd b \'y'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -71,9 +82,16 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'template/'),
 )
 
+LOGIN_URL = '/admin/login/'
+LOGIN_REDIRECT_URL = '/admin/entries/'
+LOGOUT_URL = '/admin/logout/'
+
 from .production import *
 
 try:
     from .development import *
 except:
     pass
+
+from admin.utils import mongo_connect
+mongo_connect()

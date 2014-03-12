@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>how-to login</title>
+
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/howto-admin.css' %}">
+	</head>
+
+	<body>
+
+		<div class="container login">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">login</div>
+						</div>
+
+						<div class="panel-body">
+							
+							<div class="row">
+								<form method="post" role="form" class="form-horizontal">
+									{% csrf_token %}
+									{% for field in form.visible_fields %}
+										<div class="form-group {% if field.errors %}has-error has-feedback{% endif %}">
+											<label for="{{ field.id_for_label }}" class="col-md-2 col-md-offset-1 control-label">{{ field.label }}</label>
+
+											<div class="col-md-7">
+												<input type="{{field.field.widget.input_type}}" name="{{field.name}}" id="{{field.id_for_label}}" class="form-control">
+												{% if field.errors %}
+													{% for error in field.errors %}
+														<span class="help-block">{{error|escape}}</span>
+													{% endfor %}
+													<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+												{% endif %}
+											</div>
+										</div>
+									{% endfor %}
+
+								</form>
+							</div>
+
+						</div>
+
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-2 col-md-offset-10">
+									<a id="form_submit" href="#" class="btn btn-success" role="button">Submit</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/howto-admin.js' %}"></script>
+	</body>
+
+</html>

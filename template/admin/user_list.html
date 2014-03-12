@@ -1,0 +1,50 @@
+{% extends 'admin/panel.html' %}
+
+{% block panel_heading %}
+<div class="row">
+	<div class="col-md-11">
+		<div class="panel-title">users</div>
+	</div>
+	<div class="col-md-1">
+		<a href="{% url 'users-create' %}" class="btn btn-success btn-xs" role="button">+ add new</a>
+	</div>
+</div>
+{% endblock %}
+
+{% block panel_content %}
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>username</th>
+			<th>name</th>
+			<th>email</th>
+			<th>acts</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for userobj in users %}
+		<tr>
+			<td><img src="{{userobj.gravatar}}" class="img-circle" width="40" height="40"></td>
+			<td>{{userobj.username}} <span class="badge" title="entries">{{userobj.entries}}</span></td>
+			<td>{{userobj.get_full_name}}</td>
+			<td>{{userobj.email}}</td>
+			<td>
+				{% if user.id == userobj.id %}
+				<a href="{% url 'users-update' %}" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-pencil" title="edit"></span></a>
+				{% endif %}
+
+				<a href="{% url 'entries' %}?user={{userobj.username}}" class="btn btn-info btn-xs" role="button"><span class="glyphicon glyphicon-th-list" title="entries"></span></a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block panel_footer %}
+	{% if is_paginated %}
+		{% include 'admin/paginate.html' %}
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'admin/panel.html' %}
+
+{% block panel_heading %}
+<div class="row">
+	<div class="col-md-11">
+		<div class="panel-title">
+			{% if not form.initial %}
+				adding new entry
+			{% else %}
+				<h4>
+					{{form.instance.title}} <small>({{form.instance.created_at|date}})</small>
+				</h4>
+			{% endif %}
+		</div>
+	</div>
+	<div class="col-md-1">
+		<a href="{% url 'entries' %}" class="btn btn-danger btn-xs" role="button">cancel</a>
+	</div>
+</div>
+{% endblock %}
+
+{% block panel_content %}
+<div class="panel-body">
+	{% for error in errors %}
+	<div class="alert alert-danger alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		{{error}}
+	</div>
+	{% endfor %}
+	{% include 'admin/forms.html' %}
+</div>
+{% endblock %}
+
+{% block panel_footer %}
+<div class="panel-footer">
+	<div class="row">
+		<div class="col-md-1 col-md-offset-11">
+			<a id="form_submit" href="#" class="btn btn-success" role="button">Submit</a>
+		</div>
+	</div>
+</div>
+{% endblock %}

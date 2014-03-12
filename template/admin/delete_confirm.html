@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<div class="panel-title">
+					are you sure you want to delete "{{object}}" ?
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<p class="lead">this operation is not reversible. </p>
+				<form method="post">{%csrf_token%}</form>
+			</div>
+
+			<div class="panel-footer">
+				<div class="row">
+					<div class="col-md-2 col-md-offset-10">
+						<a id="form_submit" href="#" class="btn btn-danger" role="button">Submit</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

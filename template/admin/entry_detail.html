@@ -1,0 +1,37 @@
+{% extends 'admin/panel.html' %}
+
+{% block panel_heading %}
+<div class="row">
+	<div class="col-md-11">
+		<div class="panel-title"><h3><span class="label label-default">{{entry.kind}}</span> {{entry.title}} <small>by {{entry.author.username}},last modification: {{entry.modified_at|date:'d b \'y H:i'}}</small></h3></div>
+	</div>
+</div>
+{% endblock %}
+
+{% block panel_content %}
+<div class="panel-body">
+	<blockquote>
+		<p>description</p>
+		<footer>{{entry.description}}</footer>
+	</blockquote>
+
+	<blockquote>
+		<p>slug</p>
+		<footer>{{entry.slug}}</footer>
+	</blockquote>
+
+	<blockquote>
+		<p>tags</p>
+		<footer>
+			{% for tag in entry.tags.all %}
+				<span class="label label-primary">{{tag.label}}</span>
+			{% endfor %}
+		</footer>
+	</blockquote>
+
+	<p class="lead">see related files (as raw): 
+		<a href="{% url 'entry-file' entry.id 'html' %}" target="_blank" class="btn btn-default btn-sm" role="button">html</a>
+		<a href="{% url 'entry-file' entry.id 'markdown' %}" target="_blank" class="btn btn-default btn-sm" role="button">markdown</a>
+	</p>
+</div>
+{% endblock %}

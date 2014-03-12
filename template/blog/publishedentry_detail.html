@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+						
+		<div class="page-header">
+			<p class="text-muted">{{entry.created_at|date}}</p>
+			<h1>{{entry.title}}</h1>
+		</div>
+		<p class="lead text-muted">{{entry.description}}</p>
+		<div class="entry-html">{{entry_html|safe}}</div>
+		
+
+
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+			var disqus_shortname = 'brsyuksel'; // required: replace example with your forum shortname
+
+		    /* * * DON'T EDIT BELOW THIS LINE * * */
+		    (function() {
+		        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	        })();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+
+
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block navigator %}
+<div class="btn-group dropup">
+	<button class="btn btn-default btn-xs {{toc|yesno:',disabled'}}" type="button" onclick="location.href='#index';">index</button>
+	<button class="btn btn-default btn-xs dropdown-toggle {{toc|yesno:',disabled'}}" data-toggle="dropdown">
+		<span class="caret"></span>
+		<span class="sr-only">toggle dropdown</span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
+	{% for t in toc %}
+		{% if t.0 == 1 %}<li><a href="{{t.1}}">{{t.2}}</a></li>{% endif %}
+	{% endfor %}
+	</ul>
+</div>
+{% endblock %}
+
+{% block markdownurl %}
+<a href="{% url 'entry-file' entry.id 'markdown' %}" class="text-muted">markdown</a>
+{% endblock %}

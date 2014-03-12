@@ -1,0 +1,25 @@
+<div class="row">
+	<form method="post" role="form" class="form-horizontal" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+		{% csrf_token %}
+		{% for hidden in form.hidden_fields %}
+			{{ hidden }}
+		{% endfor %}
+
+		{% for field in form.visible_fields %}
+			<div class="form-group {% if field.errors %}has-error has-feedback{% endif %}">
+				<label for="{{ field.id_for_label }}" class="col-md-2 col-md-offset-1 control-label">{{ field.label }}</label>
+
+				<div class="col-md-7">
+					{{field}}
+					{% if field.errors %}
+						{% for error in field.errors %}
+							<span class="help-block">{{error|escape}}</span>
+						{% endfor %}
+						<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+
+	</form>
+</div>

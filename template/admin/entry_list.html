@@ -1,0 +1,54 @@
+{% extends 'admin/panel.html' %}
+
+{% block panel_heading %}
+<div class="row">
+	<div class="col-md-11">
+		<div class="panel-title">entries</div>
+	</div>
+	<div class="col-md-1">
+		<a href="{% url 'entries-create' %}" class="btn btn-success btn-xs" role="button">+ add new</a>
+	</div>
+</div>
+{% endblock %}
+
+{% block panel_content %}
+<table class="table">
+	<thead>
+		<tr>
+			<th>type</th>
+			<th>title</th>
+			<th>status</th>
+			<th>author</th>
+			<th>modified/created</th>
+			<th>acts</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for entry in entries %}
+		<tr>
+			<td><h2><span class="label label-default">{{entry.kind}}</span></h2></td>
+			<td><h4>{{entry.title}}<br><small><em>{{entry.description}}</em></small></h4></td>
+			<td>{{entry.publish|yesno:'<span class="label label-success">published</span>,<span class="label label-warning">draft</span>'|safe}}</td>
+			<td>{{entry.author.username}}</td>
+			<td>{{entry.modified_at|date:'d b \'y H:i'}}<br>{{entry.created_at|date:'d b \'y H:i'}}</td>
+			<td>
+				<a href="{% url 'entry' entry.id %}" class="btn btn-primary btn-xs" role="button"><span class="glyphicon glyphicon-file" title="detail"></span></a>
+				<a href="{% url 'entries-update' entry.id %}" class="btn btn-warning btn-xs" role="button"><span class="glyphicon glyphicon-edit" title="edit"></span></a>
+				<a href="{% url 'entries-delete' entry.id %}" class="btn btn-danger btn-xs" role="button"><span class="glyphicon glyphicon-trash" title="delete"></span></a>
+			</td>
+		</tr>
+		{% empty %}
+		<tr>
+			<td colspan="6"><h4>no entry</h4></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
+
+{% block panel_footer %}
+	{% if is_paginated %}
+		{% include 'admin/paginate.html' %}
+	{% endif %}
+{% endblock %}
