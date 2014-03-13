@@ -10,6 +10,9 @@
 
 {% block panel_content %}
 <div class="panel-body">
+	{% if form.initial|length != 5 %}
+	<div class="alert alert-warning">You must first set howto before continue</div>
+	{% endif %}
 	{% include 'admin/forms.html' %}
 </div>
 {% endblock %}
