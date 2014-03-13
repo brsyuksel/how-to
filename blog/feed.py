@@ -15,9 +15,9 @@ class LatestFeed(Feed):
 
 		_settings = get_settings()
 
-		self.title = _settings['name']
-		self.subtitle = _settings['html']['description']
-		self.author_name = _settings['html']['author']
+		self.title = _settings.get('name', '')
+		self.subtitle = _settings.get('html', {}).get('description', '')
+		self.author_name = _settings.get('html', {}).get('author', '')
 
 	def __call__(self, request, *args, **kwargs):
 		self.__domain = request.get_host()

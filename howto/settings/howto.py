@@ -37,6 +37,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'howto.middleware.ViewNameMiddleware',
+    'howto.middleware.ForceSetBlogMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
